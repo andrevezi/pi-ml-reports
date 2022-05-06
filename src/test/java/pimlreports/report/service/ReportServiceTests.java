@@ -3,7 +3,6 @@ package pimlreports.report.service;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import pimlreports.report.dto.SoldProductsDTO;
 
@@ -26,8 +25,8 @@ public class ReportServiceTests {
 
         Mockito.when(reportService.getTotalSell()).thenReturn(mockList);
 
-        Assertions.assertDoesNotThrow(()->{
-           reportService.topSellProducts();
+        Assertions.assertDoesNotThrow(() -> {
+            reportService.topSellProducts();
         });
 
     }
