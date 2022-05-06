@@ -6,11 +6,20 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import pimlreports.report.entity.Product;
+import pimlreports.report.dto.ProductDTO;
+import pimlreports.report.dto.SoldProductsDTO;
+import pimlreports.report.dto.UserDTO;
+import pimlreports.report.exception.EmptyCartException;
 import pimlreports.report.exception.handler.RestTemplateResponseErrorHandler;
+import pimlreports.report.reports.ProductReport;
+import pimlreports.report.reports.ProductReportInterface;
+import pimlreports.report.reports.SalesReport;
+import pimlreports.report.reports.SalesReportInterface;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,15 +40,58 @@ public class ReportService {
         this.restTemplate = restTemplate;
     }
 
-    public List<Product> getAllProducts(Long sellerId) {
+    public void productBySellerIdReport(Long sellerId) {
+        List<ProductDTO> sellerProducts = getAllProducts(sellerId);
+        UserDTO foundUser = getUserById(sellerId);
+
+        ProductReportInterface productReport = new ProductReport(sellerProducts);
+        productReport.generateHeader(foundUser.getName());
+        productReport.generateBody();
+        productReport.generateFooter();
+        productReport.print();
+    }
+
+    public void topSellProducts() {
+        List<SoldProductsDTO> sellList = getTotalSell().stream().sorted(Comparator.comparingInt(SoldProductsDTO::getQuantity).reversed()).collect(Collectors.toList());
+        SalesReportInterface salesReport = new SalesReport(sellList);
+        salesReport.generateHeader();
+        salesReport.generateBody();
+        salesReport.generateFooter();
+        salesReport.print();
+    }
+
+    public List<ProductDTO> getAllProducts(Long sellerId) {
         String resourceURI = PRODUCT_API_URI.concat(PRODUCTS_RESOURCE);
         try {
-            ResponseEntity<Product[]> result = restTemplate.getForEntity(resourceURI, Product[].class);
-            return Arrays.stream(result.getBody()).filter(product -> product.getSellerId().equals(sellerId)).collect(Collectors.toList());
+            ResponseEntity<ProductDTO[]> result = restTemplate.getForEntity(resourceURI, ProductDTO[].class);
+            return Arrays.stream(Objects.requireNonNull(result.getBody())).filter(product -> product.getSellerId().equals(sellerId)).collect(Collectors.toList());
 
         } catch (RuntimeException ex) {
 
             throw new RuntimeException("Products do not exists");
+        }
+    }
+
+    public UserDTO getUserById(Long userId) {
+        String resourceURI = "http://localhost:8080/user/v1/".concat(String.valueOf(userId));
+        try {
+            return restTemplate.getForEntity(resourceURI, UserDTO.class).getBody();
+
+        } catch (RuntimeException ex) {
+
+            throw new RuntimeException("User not found");
+        }
+    }
+
+    public List<SoldProductsDTO> getTotalSell() throws EmptyCartException {
+        String resourceURI = "http://localhost:8082/api/v1/totalSell";
+        try {
+            ResponseEntity<SoldProductsDTO[]> result = restTemplate.getForEntity(resourceURI, SoldProductsDTO[].class);
+            return Arrays.stream(Objects.requireNonNull(result.getBody())).collect(Collectors.toList());
+
+        } catch (EmptyCartException ex) {
+
+            throw new EmptyCartException("Empty cart");
         }
     }
 

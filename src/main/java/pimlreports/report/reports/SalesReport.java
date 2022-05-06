@@ -2,32 +2,30 @@ package pimlreports.report.reports;
 
 import com.lowagie.text.*;
 import com.lowagie.text.Font;
-
 import com.lowagie.text.Image;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
-import pimlreports.report.dto.ProductDTO;
+import pimlreports.report.dto.SoldProductsDTO;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class ProductReport implements ProductReportInterface {
+public class SalesReport implements SalesReportInterface {
 
-    private final List<ProductDTO> productList;
+    private final List<SoldProductsDTO> saleList;
     private final Document filePDF;
 
-    public ProductReport(List<ProductDTO> productList) {
-        this.productList = productList;
+    public SalesReport(List<SoldProductsDTO> saleList) {
+        this.saleList = saleList;
         this.filePDF = new Document();
         try {
-            String reportPath = "ProductReport.pdf";
+            String reportPath = "SalesReport.pdf";
             PdfWriter.getInstance(this.filePDF, new FileOutputStream(reportPath));
             this.filePDF.open();
         } catch (FileNotFoundException e) {
@@ -36,18 +34,16 @@ public class ProductReport implements ProductReportInterface {
     }
 
     @Override
-    public void generateHeader(String sellerName) {
+    public void generateHeader() {
         this.addImage("ML.png");
         this.jumpLine();
         this.jumpLine();
         Paragraph paragraphTitle = new Paragraph();
         paragraphTitle.setAlignment(Element.ALIGN_CENTER);
-        paragraphTitle.add(new Chunk("PRODUCT REPORT", new Font(Font.HELVETICA, 24)));
+        paragraphTitle.add(new Chunk("SALES REPORT", new Font(Font.HELVETICA, 24)));
         this.filePDF.add(paragraphTitle);
         this.jumpLine();
-        Paragraph paragraphName = new Paragraph();
-        paragraphName.add("Vendor: "+new Chunk(sellerName));
-        this.filePDF.add(paragraphName);
+
         Paragraph paragraphDate = new Paragraph();
         paragraphDate.setAlignment(Element.ALIGN_RIGHT);
         paragraphDate.add(new Chunk("Report generated : " + this.addFormattedDate()));
@@ -78,9 +74,9 @@ public class ProductReport implements ProductReportInterface {
     }
 
     private PdfPTable createTableWithHeaders() {
-        PdfPTable tableProducts = new PdfPTable(4);
+        PdfPTable tableProducts = new PdfPTable(5);
         tableProducts.setWidthPercentage(98);
-        tableProducts.setWidths(new float[]{1f, 2f, 1f, 1f});
+        tableProducts.setWidths(new float[]{1f, 2f, 1f, 1f, 1f});
 
 
         PdfPCell cellTitle = new PdfPCell(new Phrase("PRODUCT ID"));
@@ -93,7 +89,7 @@ public class ProductReport implements ProductReportInterface {
         cellTitle.setHorizontalAlignment(Element.ALIGN_CENTER);
         tableProducts.addCell(cellTitle);
 
-        cellTitle = new PdfPCell(new Phrase("PRODUCT SIZE"));
+        cellTitle = new PdfPCell(new Phrase("PRODUCT QTY"));
         cellTitle.setBackgroundColor(Color.LIGHT_GRAY);
         cellTitle.setHorizontalAlignment(Element.ALIGN_CENTER);
         tableProducts.addCell(cellTitle);
@@ -101,6 +97,11 @@ public class ProductReport implements ProductReportInterface {
         cellTitle = new PdfPCell(new Phrase("UNIT PRICE"));
         cellTitle.setHorizontalAlignment(Element.ALIGN_CENTER);
         cellTitle.setBackgroundColor(Color.LIGHT_GRAY);
+        tableProducts.addCell(cellTitle);
+
+        cellTitle = new PdfPCell(new Phrase("TOTAL"));
+        cellTitle.setBackgroundColor(Color.LIGHT_GRAY);
+        cellTitle.setHorizontalAlignment(Element.ALIGN_CENTER);
         tableProducts.addCell(cellTitle);
 
         return tableProducts;
@@ -112,26 +113,30 @@ public class ProductReport implements ProductReportInterface {
 
     private void addProductsToTable(PdfPTable tableProducts) {
         int count = 1;
-        for (ProductDTO product : productList) {
+        for (SoldProductsDTO sale : saleList) {
 
-            PdfPCell cellID = new PdfPCell(new Phrase(product.getId().toString()));
+            PdfPCell cellID = new PdfPCell(new Phrase(sale.getProduct_id().toString()));
             cellID.setHorizontalAlignment(Element.ALIGN_CENTER);
-            PdfPCell cellName = new PdfPCell(new Phrase(product.getName()));
-            PdfPCell cellProductSize = new PdfPCell(new Phrase(String.valueOf(product.getSize())));
-            cellProductSize.setHorizontalAlignment(Element.ALIGN_CENTER);
-            PdfPCell cellPrice = new PdfPCell(new Phrase(String.valueOf(product.getPrice())));
-            cellProductSize.setHorizontalAlignment(Element.ALIGN_CENTER);
+            PdfPCell cellName = new PdfPCell(new Phrase(sale.getName()));
+            PdfPCell cellQty = new PdfPCell(new Phrase(String.valueOf(sale.getQuantity())));
+            cellQty.setHorizontalAlignment(Element.ALIGN_CENTER);
+            PdfPCell cellPrice = new PdfPCell(new Phrase("R$"+String.valueOf(sale.getPrice())));
+            cellPrice.setHorizontalAlignment(Element.ALIGN_CENTER);
+            PdfPCell cellTotal = new PdfPCell(new Phrase("R$"+String.valueOf(sale.getTotal())));
+            cellTotal.setHorizontalAlignment(Element.ALIGN_CENTER);
 
             if (count % 2 == 0) {
                 cellID.setBackgroundColor(Color.lightGray);
                 cellName.setBackgroundColor(Color.lightGray);
-                cellProductSize.setBackgroundColor(Color.lightGray);
+                cellQty.setBackgroundColor(Color.lightGray);
                 cellPrice.setBackgroundColor(Color.lightGray);
+                cellTotal.setBackgroundColor(Color.lightGray);
             }
             tableProducts.addCell(cellID);
             tableProducts.addCell(cellName);
-            tableProducts.addCell(cellProductSize);
+            tableProducts.addCell(cellQty);
             tableProducts.addCell(cellPrice);
+            tableProducts.addCell(cellTotal);
             count++;
         }
     }

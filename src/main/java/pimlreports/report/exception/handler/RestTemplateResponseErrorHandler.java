@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.ResponseErrorHandler;
+import pimlreports.report.exception.EmptyCartException;
 
 import java.io.IOException;
 
@@ -27,9 +28,9 @@ public class RestTemplateResponseErrorHandler
     public void handleError(ClientHttpResponse httpResponse)
             throws IOException {
 
-        if (httpResponse.getStatusCode() == HttpStatus.CONFLICT) {
+        if (httpResponse.getStatusCode() == HttpStatus.NOT_FOUND) {
 
-            throw new RuntimeException("Seller already exists");
+            throw new EmptyCartException("Not found");
         }
     }
 }

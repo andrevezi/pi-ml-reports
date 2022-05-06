@@ -1,7 +1,6 @@
-package pimlreports.report.entity;
+package pimlreports.report.dto;
 
 import lombok.*;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import java.math.BigDecimal;
 
@@ -9,7 +8,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter @Getter
-public class Product {
+public class ProductDTO {
     private Long id;
     private String name;
     private String description;
