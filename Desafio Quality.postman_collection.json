@@ -1,0 +1,1303 @@
+{
+	"info": {
+		"_postman_id": "2091f4a8-5898-4deb-b808-265d8703710e",
+		"name": "Desafio Quality",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "District",
+			"item": [
+				{
+					"name": "Create District",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"districtName\": \"Centro\",\n    \"valueDistrictM2\": 10.0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/district",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"district"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success - Create",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"districtName\": \"Centro\",\n    \"valueDistrictM2\": 10.0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/district",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"district"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 13:40:26 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"districtName\": \"Centro\",\n    \"valueDistrictM2\": 10\n}"
+						},
+						{
+							"name": "Fail - districtName must start with uppercase",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"districtName\": \"centro\",\n    \"valueDistrictM2\": 10.0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/district",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"district"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 13:42:56 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"tipo\": \"campo inválido\",\n        \"mensagem\": \"O nome do bairro deve começar com letra maiúscula\"\n    }\n]"
+						},
+						{
+							"name": "Fail - districtName cant be empty",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"districtName\": \"\",\n    \"valueDistrictM2\": 10.0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/district",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"district"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 13:45:12 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"tipo\": \"campo inválido\",\n        \"mensagem\": \"O nome do bairro deve começar com letra maiúscula\"\n    },\n    {\n        \"tipo\": \"campo inválido\",\n        \"mensagem\": \"O bairro não pode estar vazio.\"\n    },\n    {\n        \"tipo\": \"campo inválido\",\n        \"mensagem\": \"O bairro não pode estar vazio.\"\n    }\n]"
+						},
+						{
+							"name": "Fail - districtName cant have more than 45 characters in name",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"districtName\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum\",\n    \"valueDistrictM2\": 10.0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/district",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"district"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 13:46:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"tipo\": \"campo inválido\",\n        \"mensagem\": \"O nome do bairro deve começar com letra maiúscula\"\n    },\n    {\n        \"tipo\": \"campo inválido\",\n        \"mensagem\": \"O comprimento do bairro não pode exceder 45 caracteres \"\n    }\n]"
+						},
+						{
+							"name": "Fail - valueDistrictM2 must be greater than 0",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"districtName\": \"Centro\",\n    \"valueDistrictM2\": 0.0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/district",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"district"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 13:53:10 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"tipo\": \"campo inválido\",\n        \"mensagem\": \"O valor do m² deve ser maior que 0\"\n    }\n]"
+						},
+						{
+							"name": "Failt - valueDistrictM2 must be lower or equal to 13",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"districtName\": \"Centro\",\n    \"valueDistrictM2\": 14.0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/district",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"district"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 13:55:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"tipo\": \"campo inválido\",\n        \"mensagem\": \"O valor do m² deve ser menor ou igual a 13\"\n    }\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Property",
+			"item": [
+				{
+					"name": "Create Property",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"propName\": \"Casa no centro\",\n    \"districtName\": \"Centro\",\n    \"rooms\": [\n        {\n            \"roomName\": \"Cozinha\",\n            \"roomWidth\": 5.0,\n            \"roomLength\": 10.0\n        },\n        {\n            \"roomName\": \"Sala\",\n            \"roomWidth\": 5.0,\n            \"roomLength\": 5.0\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/property",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"property"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success - Create",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"propName\": \"Casa no centro\",\n    \"districtName\": \"Centro\",\n    \"rooms\": [\n        {\n            \"roomName\": \"Cozinha\",\n            \"roomWidth\": 5.0,\n            \"roomLength\": 10.0\n        },\n        {\n            \"roomName\": \"Sala\",\n            \"roomWidth\": 5.0,\n            \"roomLength\": 5.0\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/property",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"property"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 14:29:46 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"propName\": \"Casa no centro\",\n    \"districtName\": \"Centro\",\n    \"district\": {\n        \"districtName\": \"Centro\",\n        \"valueDistrictM2\": null\n    },\n    \"rooms\": [\n        {\n            \"roomName\": \"Cozinha\",\n            \"roomWidth\": 5,\n            \"roomLength\": 10,\n            \"roomM2\": 50\n        },\n        {\n            \"roomName\": \"Sala\",\n            \"roomWidth\": 5,\n            \"roomLength\": 5,\n            \"roomM2\": 25\n        }\n    ]\n}"
+						},
+						{
+							"name": "Fail - propName must start with uppercase.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"propName\": \"casa no centro\",\n    \"districtName\": \"Centro\",\n    \"rooms\": [\n        {\n            \"roomName\": \"Cozinha\",\n            \"roomWidth\": 5.0,\n            \"roomLength\": 10.0\n        },\n        {\n            \"roomName\": \"Sala\",\n            \"roomWidth\": 5.0,\n            \"roomLength\": 5.0\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/property",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"property"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 14:32:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"tipo\": \"campo inválido\",\n        \"mensagem\": \"Nome deve estar em letra maiúscula.\"\n    }\n]"
+						},
+						{
+							"name": "Fail - propName must not be empty",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"propName\": \"\",\n    \"districtName\": \"Centro\",\n    \"rooms\": [\n        {\n            \"roomName\": \"Cozinha\",\n            \"roomWidth\": 5.0,\n            \"roomLength\": 10.0\n        },\n        {\n            \"roomName\": \"Sala\",\n            \"roomWidth\": 5.0,\n            \"roomLength\": 5.0\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/property",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"property"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 14:33:24 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"tipo\": \"campo inválido\",\n        \"mensagem\": \"Favor informar o nome da propriedade.\"\n    },\n    {\n        \"tipo\": \"campo inválido\",\n        \"mensagem\": \"Nome deve estar em letra maiúscula.\"\n    }\n]"
+						},
+						{
+							"name": "Fail - propName must have less than 30 characters.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"propName\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\",\n    \"districtName\": \"Centro\",\n    \"rooms\": [\n        {\n            \"roomName\": \"Cozinha\",\n            \"roomWidth\": 5.0,\n            \"roomLength\": 10.0\n        },\n        {\n            \"roomName\": \"Sala\",\n            \"roomWidth\": 5.0,\n            \"roomLength\": 5.0\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/property",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"property"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 14:34:29 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"tipo\": \"campo inválido\",\n        \"mensagem\": \"Favor escolher um nome menor que 30 caracteres.\"\n    },\n    {\n        \"tipo\": \"campo inválido\",\n        \"mensagem\": \"Nome deve estar em letra maiúscula.\"\n    }\n]"
+						},
+						{
+							"name": "Fail - roomName cant be empty",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"propName\": \"Propriedade válida\",\n    \"districtName\": \"Centro\",\n    \"rooms\": [\n        {\n            \"roomName\": \"\",\n            \"roomWidth\": 5.0,\n            \"roomLength\": 10.0\n        },\n        {\n            \"roomName\": \"Sala\",\n            \"roomWidth\": 5.0,\n            \"roomLength\": 5.0\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/property",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"property"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 17:30:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"tipo\": \"campo inválido\",\n        \"mensagem\": \"Favor informar o nome do cômodo.\"\n    },\n    {\n        \"tipo\": \"campo inválido\",\n        \"mensagem\": \"Nome deve estar em letra maiúscula.\"\n    }\n]"
+						},
+						{
+							"name": "Fail - roomName must start with uppercase",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"propName\": \"Propriedade válida\",\n    \"districtName\": \"Centro\",\n    \"rooms\": [\n        {\n            \"roomName\": \"quarto\",\n            \"roomWidth\": 5.0,\n            \"roomLength\": 10.0\n        },\n        {\n            \"roomName\": \"Sala\",\n            \"roomWidth\": 5.0,\n            \"roomLength\": 5.0\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/property",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"property"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 17:35:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"tipo\": \"campo inválido\",\n        \"mensagem\": \"Nome deve estar em letra maiúscula.\"\n    }\n]"
+						},
+						{
+							"name": "Fail - roomWidth must have the correct value",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"propName\": \"Propriedade válida\",\n    \"districtName\": \"Centro\",\n    \"rooms\": [\n        {\n            \"roomName\": \"Quarto\",\n            \"roomWidth\": 26.0,\n            \"roomLength\": 10.0\n        },\n        {\n            \"roomName\": \"Sala\",\n            \"roomWidth\": 5.0,\n            \"roomLength\": 5.0\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/property",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"property"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 17:40:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"tipo\": \"campo inválido\",\n        \"mensagem\": \"Favor informar a metragem correta.\"\n    }\n]"
+						},
+						{
+							"name": "Fail - roomWidth cant be empty",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"propName\": \"Propriedade válida\",\n    \"districtName\": \"Centro\",\n    \"rooms\": [\n        {\n            \"roomName\": \"Quarto\",\n            \"roomWidth\": \"\",\n            \"roomLength\": 10.0\n        },\n        {\n            \"roomName\": \"Sala\",\n            \"roomWidth\": 5.0,\n            \"roomLength\": 5.0\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/property",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"property"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 17:53:10 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"tipo\": \"campo inválido\",\n        \"mensagem\": \"Favor informar a largura do cômodo.\"\n    }\n]"
+						},
+						{
+							"name": "Fail - roomLength must have the correct value",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"propName\": \"Propriedade válida\",\n    \"districtName\": \"Centro\",\n    \"rooms\": [\n        {\n            \"roomName\": \"Quarto\",\n            \"roomWidth\": 10.0,\n            \"roomLength\": 34.0\n        },\n        {\n            \"roomName\": \"Sala\",\n            \"roomWidth\": 5.0,\n            \"roomLength\": 5.0\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/property",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"property"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 17:40:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"tipo\": \"campo inválido\",\n        \"mensagem\": \"Favor informar a metragem correta.\"\n    }\n]"
+						},
+						{
+							"name": "Fail - roomLength cant be empty",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"propName\": \"Propriedade válida\",\n    \"districtName\": \"Centro\",\n    \"rooms\": [\n        {\n            \"roomName\": \"Quarto\",\n            \"roomWidth\": 12.0,\n            \"roomLength\": \"\"\n        },\n        {\n            \"roomName\": \"Sala\",\n            \"roomWidth\": 5.0,\n            \"roomLength\": 5.0\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/property",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"property"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 17:54:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"tipo\": \"campo inválido\",\n        \"mensagem\": \"Favor informar o comprimento do cômodo.\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get Total Square Meter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/property/{{id}}/totalM2",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"property",
+								"{{id}}",
+								"totalM2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success - Get total m2 of a proprierty",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/property/{{id}}/totalM2",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"property",
+										"{{id}}",
+										"totalM2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 17:56:04 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "157"
+						},
+						{
+							"name": "Fail - Proprierty not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/property/{{id}}/totalM2",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"property",
+										"{{id}}",
+										"totalM2"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "40"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 18:00:50 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "Não há nenhuma propriedade com o ID 1."
+						}
+					]
+				},
+				{
+					"name": "Get Biggest Room",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/property/{{id}}/biggestRoom",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"property",
+								"{{id}}",
+								"biggestRoom"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success - Get the biggest room of a proprierty",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/property/{{id}}/biggestRoom",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"property",
+										"{{id}}",
+										"biggestRoom"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 17:59:09 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"roomName\": \"Quarto\",\n    \"roomWidth\": 12,\n    \"roomLength\": 11,\n    \"roomM2\": 132\n}"
+						},
+						{
+							"name": "Fail - Proprierty not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/property/{{id}}/biggestRoom",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"property",
+										"{{id}}",
+										"biggestRoom"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "40"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 18:01:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "Não há nenhuma propriedade com o ID 1."
+						}
+					]
+				},
+				{
+					"name": "Get Rooms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/property/{{id}}/rooms",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"property",
+								"{{id}}",
+								"rooms"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success - Get the list of rooms",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/property/{{id}}/rooms",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"property",
+										"{{id}}",
+										"rooms"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 17:59:32 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"roomName\": \"Quarto\",\n        \"roomWidth\": 12,\n        \"roomLength\": 11,\n        \"roomM2\": 132\n    },\n    {\n        \"roomName\": \"Sala\",\n        \"roomWidth\": 5,\n        \"roomLength\": 5,\n        \"roomM2\": 25\n    }\n]"
+						},
+						{
+							"name": "Fail - Proprierty not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/property/{{id}}/rooms",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"property",
+										"{{id}}",
+										"rooms"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "40"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 18:01:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "Não há nenhuma propriedade com o ID 1."
+						}
+					]
+				},
+				{
+					"name": "Get Total Value",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/property/{{id}}/totalValue",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"property",
+								"{{id}}",
+								"totalValue"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success - Get the total value of a proprierty",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/property/{{id}}/totalValue",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"property",
+										"{{id}}",
+										"totalValue"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 17:59:54 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "2041"
+						},
+						{
+							"name": "Fail - Proprierty not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/property/{{id}}/totalValue",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"property",
+										"{{id}}",
+										"totalValue"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "40"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Apr 2022 18:01:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "Não há nenhuma propriedade com o ID 1."
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "local",
+			"value": "localhost:8080"
+		},
+		{
+			"key": "id",
+			"value": "1"
+		}
+	]
+}
