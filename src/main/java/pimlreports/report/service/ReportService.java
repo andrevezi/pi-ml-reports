@@ -40,6 +40,9 @@ public class ReportService {
         this.restTemplate = restTemplate;
     }
 
+    /**Method that generate the Vendor report
+     * @param sellerId receives the seller id to get info and the registered product list
+     */
     public void productBySellerIdReport(Long sellerId) {
         List<ProductDTO> sellerProducts = getAllProducts(sellerId);
         UserDTO foundUser = getUserById(sellerId);
@@ -51,6 +54,10 @@ public class ReportService {
         productReport.print();
     }
 
+    /**
+     * Method that generate the sales report, before , this method order the  list by the product with more sell in quantity
+     * and then invokes the report constructor
+     */
     public void topSellProducts() {
         List<SoldProductsDTO> sellList = getTotalSell().stream().sorted(Comparator.comparingInt(SoldProductsDTO::getQuantity).reversed()).collect(Collectors.toList());
         SalesReportInterface salesReport = new SalesReport(sellList);
@@ -60,6 +67,10 @@ public class ReportService {
         salesReport.print();
     }
 
+    /**Method that calls Products API to get all registered products of a specific Seller
+     * @param sellerId receives a seller id.
+     * @return returns all products registered by this seller
+     */
     public List<ProductDTO> getAllProducts(Long sellerId) {
         String resourceURI = PRODUCT_API_URI.concat(PRODUCTS_RESOURCE);
         try {
@@ -72,6 +83,10 @@ public class ReportService {
         }
     }
 
+    /**Method to get information of an user.
+     * @param userId receives an user id to be checked in Gandalf API .
+     * @return return the user found.
+     */
     public UserDTO getUserById(Long userId) {
         String resourceURI = "http://localhost:8080/user/v1/".concat(String.valueOf(userId));
         try {
@@ -83,6 +98,10 @@ public class ReportService {
         }
     }
 
+    /**Method that calls Cart API with all sales
+     * @return a list of all sales already with product names, unit price, quantity and total(price x qty).
+     * @throws EmptyCartException if there is no sale registered throws a empty cart exception.
+     */
     public List<SoldProductsDTO> getTotalSell() throws EmptyCartException {
         String resourceURI = "http://localhost:8082/api/v1/totalSell";
         try {
